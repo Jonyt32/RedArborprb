@@ -1,0 +1,6 @@
+@WebApiRedArbor_HostAddress = http://localhost:5048
+
+GET {{WebApiRedArbor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
