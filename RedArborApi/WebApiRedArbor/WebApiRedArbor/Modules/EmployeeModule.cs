@@ -1,4 +1,4 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApiRedArbor.Entities;
 using WebApiRedArbor.Interfaces;
 
@@ -10,6 +10,7 @@ namespace WebApiRedArbor.Modules
         {
             var group = routes.MapGroup("/Employee");
 
+            // Obtener lista de empleados
             group.MapGet("/List", async (IServiceEmployee service) =>
             {
                 var list = await service.ListAsync();
@@ -18,48 +19,51 @@ namespace WebApiRedArbor.Modules
             .Produces<IEnumerable<Employee>>(StatusCodes.Status200OK)
             .Produces<string>(StatusCodes.Status404NotFound)
             .Produces<string>(StatusCodes.Status500InternalServerError)
-            .WithMetadata(new SwaggerOperationAttribute("Obtiene la lista de Employees"));
+            .WithOpenApi();
 
-            group.MapGet("/GetId", async (IServiceEmployee service, int employeeId) =>
+            // Obtener empleado por ID
+            group.MapGet("/GetId", async (IServiceEmployee service, [FromQuery] int employeeId) =>
             {
                 var employee = await service.GetIdAsync(employeeId);
-                return (employee != null) ? Results.Ok(employee) : Results.NotFound("No hay elementos en esta lista");
+                return (employee != null) ? Results.Ok(employee) : Results.NotFound("Empleado no encontrado");
             })
             .Produces<Employee>(StatusCodes.Status200OK)
             .Produces<string>(StatusCodes.Status404NotFound)
             .Produces<string>(StatusCodes.Status500InternalServerError)
-            .WithMetadata(new SwaggerOperationAttribute("Obtiene el employee por Id"));
+            .WithOpenApi();
 
-            group.MapPost("/Add", async (IServiceEmployee service, Employee entidad) =>
+            // Agregar un nuevo empleado
+            group.MapPost("/Add", async (IServiceEmployee service, [FromBody] Employee entidad) =>
             {
                 var model = await service.AddAsync(entidad);
-                return (model != null) ? Results.Ok(model) : Results.NotFound("No hay elementos en esta lista");
+                return (model != null) ? Results.Ok(model) : Results.NotFound("No se pudo agregar el empleado");
             })
-            .Produces<Role>(StatusCodes.Status200OK)
+            .Produces<Employee>(StatusCodes.Status200OK)
             .Produces<string>(StatusCodes.Status404NotFound)
             .Produces<string>(StatusCodes.Status500InternalServerError)
-            .WithMetadata(new SwaggerOperationAttribute("Agrega un employee"));
+            .WithOpenApi();
 
-            group.MapPut("/Update", async (IServiceEmployee service, Employee entidad) =>
+            // Actualizar empleado
+            group.MapPut("/Update", async (IServiceEmployee service, [FromBody] Employee entidad) =>
             {
                 await service.UpdateAsync(entidad);
-                return  Results.Ok("Actualizo con éxito");
+                return Results.Ok("Empleado actualizado con éxito");
             })
             .Produces<string>(StatusCodes.Status200OK)
             .Produces<string>(StatusCodes.Status404NotFound)
             .Produces<string>(StatusCodes.Status500InternalServerError)
-            .WithMetadata(new SwaggerOperationAttribute("Agrega un employee"));
+            .WithOpenApi();
 
-            group.MapDelete("/Delete", async (IServiceEmployee service, int employeeId) =>
+            // Eliminar empleado
+            group.MapDelete("/Delete", async (IServiceEmployee service, [FromQuery] int employeeId) =>
             {
                 await service.DeleteAsync(employeeId);
-                return Results.Ok("Elimino con éxito");
+                return Results.Ok("Empleado eliminado con éxito");
             })
             .Produces<string>(StatusCodes.Status200OK)
             .Produces<string>(StatusCodes.Status404NotFound)
             .Produces<string>(StatusCodes.Status500InternalServerError)
-            .WithMetadata(new SwaggerOperationAttribute("Agrega un employee"));
-
+            .WithOpenApi();
         }
     }
 }
