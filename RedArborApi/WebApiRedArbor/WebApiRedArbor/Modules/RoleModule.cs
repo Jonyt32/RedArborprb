@@ -9,7 +9,7 @@ namespace WebApiRedArbor.Modules
     {
         public static void MapRoleEndPoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/Role");
+            var group = routes.MapGroup("api/Role");
 
             // Obtener lista de roles
             group.MapGet("/List", async (IServiceRole service) =>

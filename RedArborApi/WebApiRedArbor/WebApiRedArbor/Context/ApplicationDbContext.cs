@@ -15,5 +15,18 @@ namespace WebApiRedArbor.Context
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        public void SeedRoles()
+        {
+            if (!Roles.Any())
+            {
+                Roles.AddRange(
+                    new Role { RoleId = 1, RoleName = "Desarrollador" },
+                    new Role { RoleId = 2, RoleName = "TeamLeader" },
+                    new Role { RoleId = 3, RoleName = "CTO" }
+                );
+                SaveChanges();
+            }
+        }
     }
 }

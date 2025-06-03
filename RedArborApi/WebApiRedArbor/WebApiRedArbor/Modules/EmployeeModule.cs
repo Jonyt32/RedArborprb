@@ -8,7 +8,7 @@ namespace WebApiRedArbor.Modules
     {
         public static void MapEmployeeEndPoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/Employee");
+            var group = routes.MapGroup("api/Employee");
 
             // Obtener lista de empleados
             group.MapGet("/List", async (IServiceEmployee service) =>

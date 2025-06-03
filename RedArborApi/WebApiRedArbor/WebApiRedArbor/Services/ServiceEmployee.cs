@@ -17,7 +17,7 @@ namespace WebApiRedArbor.Services
             try
             {
                 var employeeExist = await _repository.GetEmployeeEmailAsync(entidad.Email);
-                if (employeeExist != null)
+                if (employeeExist == null)
                 {
                     await ValidateRole(entidad.RoleId);
                     return await _repository.AddAsync(entidad);

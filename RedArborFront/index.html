@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>RedArbor</h2>
+
+        <!-- Table to display employees -->
+        <h3>Employees</h3>
+        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#employeeModal" id="createEmployeeBtn">Create Employee</button>
+        <table id="employeeTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Date birth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+
+
+        <!-- Modals for Employee -->
+        <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="employeeModalLabel">Create/Edit Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="employeeForm">
+                            <input type="hidden" id="employeeId" />
+                            <div class="form-group">
+                                <label for="employeeName">Name</label>
+                                <input type="text" class="form-control" id="employeeName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeSurname">Surname</label>
+                                <input type="text" class="form-control" id="employeeSurname">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeEmail">Email</label>
+                                <input type="email" class="form-control" id="employeeEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeDob">Date of Birth</label>
+                                <input type="date" class="form-control" id="employeeDob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeRole">Role</label>
+                                <select class="form-control" id="employeeRole"></select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveEmployeeBtn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+        <script src="scripts/utilidades.js"></script>
+</body>
+
+</html>

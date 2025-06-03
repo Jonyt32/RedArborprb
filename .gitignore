@@ -1,0 +1,36 @@
+# Archivos y carpetas generados por el sistema
+bin/
+obj/
+
+# Archivos de la base de datos (si usas SQLite, por ejemplo)
+*.db
+*.db-journal
+
+# Archivos generados por Visual Studio y Rider
+.vs/
+.idea/
+.vscode/
+
+# Configuración de usuario (se debe ignorar para que no se suban configuraciones específicas de un entorno local)
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# Dependencias de NuGet
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Archivos generados por .NET Core
+*.app
+*.dotnet
+*.vspscc
+
+# Archivos y carpetas generadas por Docker
+docker-compose.override.yml
+.docker/
+
+# Logs y archivos temporales
+logs/
+*.log

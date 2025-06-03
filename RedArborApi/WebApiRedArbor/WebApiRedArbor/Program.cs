@@ -4,6 +4,8 @@ using WebApiRedArbor.Extensiones;
 using WebApiRedArbor.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 //Variables para validar el rango de fecha
 var minAge = builder.Configuration["AgeLimits:MinAge"];
 var maxAge = builder.Configuration["AgeLimits:MaxAge"];
@@ -28,8 +30,24 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()   
+               .AllowAnyMethod()   
+               .AllowAnyHeader();  
+    });
+});
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.EnsureCreated();  
+    dbContext.SeedRoles();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,7 +60,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
 
 app.MapControllers();
