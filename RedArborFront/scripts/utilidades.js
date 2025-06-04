@@ -1,4 +1,4 @@
-const path = "https://localhost:5000/api/";
+const path = "https://localhost:32797/api/";
 
 function showErrorMessage(message) {
     alert(message);
@@ -37,10 +37,8 @@ function loadRoles() {
             data.forEach(function(role) {
                 roleSelect.append(`<option value="${role.roleId}">${role.roleName}</option>`);
             });
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            showErrorMessage(`Error loading roles: ${errorThrown}`);
         });
+
 }
 
 function initEmployeeTable() {
@@ -49,7 +47,7 @@ function initEmployeeTable() {
             "url": path + "Employee/List",
             "dataSrc": "",
             "error": function(jqXHR, textStatus, errorThrown) {
-                showErrorMessage(`Error loading employee data: ${errorThrown}`);
+                showErrorMessage(`Error loading employee data: ${jqXHR.responseText}`);
             }
         },
         "columns": [
@@ -119,7 +117,7 @@ function saveEmployee(employeeData) {
             $('#employeeTable').DataTable().ajax.reload();
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            showErrorMessage(`Error saving employee: ${errorThrown}`);
+            showErrorMessage(`Error saving employee: ${jqXHR.responseText}`);
             console.error(jqXHR.responseText);
         }
     });
@@ -184,8 +182,15 @@ $(document).ready(function() {
             return;
         }
 
+        let employeeId = $('#employeeId').val();
+        if (employeeId === '') {
+            employeeId = 0; // Esto es para indicar que es un nuevo empleado
+        } else {
+            employeeId = parseInt(employeeId, 10); // Aseguramos que sea un entero
+        }
+
         let employeeData = {
-            employeeId: $('#employeeId').val(),
+            employeeId: employeeId,
             name: name,
             surname: surname,
             email: email,

@@ -10,6 +10,7 @@ obj/
 .vs/
 .idea/
 .vscode/
+Migrations
 
 # Configuración de usuario (se debe ignorar para que no se suban configuraciones específicas de un entorno local)
 *.user
